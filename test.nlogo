@@ -196,7 +196,7 @@ foreach gis:feature-list-of countries [ [vector-feature] ->
   ask country-labels with [ country-name-label = "Belize"]
       [set xcor xcor ;+ 4 ; <- add comment to make population on Belize
        set ycor ycor - 1.5
-       set color blue]
+       set color orange]
 end
 
 
@@ -290,7 +290,7 @@ to setup-population
        ]
 
 ;; fix code
-if pop-display = "all" ; all countries
+if pop-display = "Non-Mexico" ; all countries
   [ask country-labels
     [set rep-pop-15 round (pop-15 / population-scale)
      hatch-people rep-pop-15
@@ -998,7 +998,7 @@ avg-willingness-to-migrate
 avg-willingness-to-migrate
 0
 100
-60.0
+23.0
 1
 1
 NIL
@@ -1054,7 +1054,7 @@ CHOOSER
 111
 pop-display
 pop-display
-"Mexico" "all"
+"Mexico" "Non-Mexico"
 1
 
 SLIDER
@@ -1066,7 +1066,7 @@ avg-risk-aversion
 avg-risk-aversion
 0
 100
-30.0
+13.0
 1
 1
 NIL
