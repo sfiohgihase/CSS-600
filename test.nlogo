@@ -279,17 +279,18 @@ to setup-population
   set global-risk 0
 
   if pop-display = "Mexico" ; just Mexico population
+  ;generating agents for each district
       [ask district-labels
-         [set rep-pop-2015 round (pop-2015 / population-scale)
-          hatch-people rep-pop-2015
+         [set rep-pop-2015 round (pop-2015 / population-scale);;; scaled population
+          hatch-people rep-pop-2015 ;;; make "people" agent whose value is rep-pop-2015
           [assign-people-attributes]]
-       ask people ; move to one of random patches in my district
-           [set my-home-district item 0 [district-name-label] of district-labels-here
-             move-to one-of patches with [district-name = [my-home-district] of myself]
+       ask people ;;; move to one of random patches in my district
+           [set my-home-district item 0 [district-name-label] of district-labels-here ;;; assign district for each agent from district ~~
+             move-to one-of patches with [district-name = [my-home-district] of myself];;; move agent by their districts (random location)
             ]
        ]
 
-;; fix code
+;;; fix code
 if pop-display = "Non-Mexico" ; all countries
   [ask country-labels
     [set rep-pop-15 round (pop-15 / population-scale)
@@ -311,6 +312,7 @@ if pop-display = "Non-Mexico" ; all countries
 
 
   ; update people attributes based on their location where they are intialized
+  ;;; also set up the goal-border-crossing so agent move to their goal location
   ask people
     [set my-home-district [district-name] of patch-here
      set my-home-patch patch-here
@@ -464,10 +466,14 @@ end
 
 
 ;; ROUTINE TO UPDATE WILLINGNESS TO MIGRATE
+;;; compare and balance agent's variables with global variables and update agent's variables
 to update-my-migration-variables
   ; update willingness to migrate based on sliders
 
   ;; if the sliders changed then trend towards the middle of the difference
+  ;;; global-willingness is 0 at first step (setup-population)
+  ;;; when gw != awm, calculate midpoint btw agent's willingness and average willingness (defined by user)
+  ;;; this step gradually adjusts agent's willingness little bit to the average
   if global-willingness != avg-willingness-to-migrate
     [set my-willingness-to-migrate  random-normal (round (abs (avg-willingness-to-migrate - my-willingness-to-migrate) / 2) +  my-willingness-to-migrate) 1.5]; 0-100
 
@@ -550,11 +556,16 @@ end
 
 ;; ROUTINE TO START OR STOP MIGRATING
 to check-my-migration-status
-  let migrate False
+  let migrate False ;;; default mind is not to migrate, and then
+  ;;; they will migrate if both conditions are satisfied
+  ;;; 1. willingness to migrate > 50 (seems 50 is defined by the author)
+  ;;; 2. my-risk-aversion-to-migrate < my-migration-means (these my-values are updated from
+  ;;; "to update-my-migration-variables" and they get random values
   ifelse (my-willingness-to-migrate > 50 and (my-risk-aversion-to-migrate < my-migration-means)); +  100 ))
       [set migrate True]
       [set migrate False]
 
+  ;;; adjust migration status and update time
    ifelse migrating? = migrate
     [set migration-status-time migration-status-time + 1 ] ; just add time
     ; change migrating to True or Flase
