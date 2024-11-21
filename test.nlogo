@@ -291,7 +291,7 @@ to setup-population
        ]
 
 ;;; fix code
-if pop-display = "Non-Mexico" ; all countries
+if pop-display = "All" ; all countries
   [ask country-labels
     [set rep-pop-15 round (pop-15 / population-scale)
      hatch-people rep-pop-15
@@ -306,6 +306,8 @@ if pop-display = "Non-Mexico" ; all countries
     if my-home-country = "El Salvador" [ set color red ]
     if my-home-country = "Guatemala" [ set color green ]
     if my-home-country = "Mexico" [ set color blue ]
+    if my-home-country = "Honduras" [ set color orange]
+    if my-home-country = "Belize" [ set color white]
     ;; Add more conditions for other countries as needed
   ]
 ]
@@ -837,131 +839,6 @@ NIL
 NIL
 1
 
-MONITOR
-847
-195
-944
-240
-Rio Grande (RG)
-count people with [border-crossed-at-label = \"RG\"]
-17
-1
-11
-
-MONITOR
-949
-195
-1023
-240
-Laredo (LR)
-count people with [border-crossed-at-label = \"LR\"]
-17
-1
-11
-
-MONITOR
-1027
-195
-1101
-240
-Del Rio (DR)
-count people with [border-crossed-at-label = \"DR\"]
-17
-1
-11
-
-MONITOR
-1105
-194
-1184
-239
-Big Bend (BB)
-count people with [border-crossed-at-label = \"BB\"]
-17
-1
-11
-
-MONITOR
-848
-245
-920
-290
-El Paso (EP)
-count people with [border-crossed-at-label = \"EP\"]
-17
-1
-11
-
-MONITOR
-925
-245
-1001
-290
-Tuscon (TS)
-count people with [border-crossed-at-label = \"TS\"]
-17
-1
-11
-
-MONITOR
-1003
-245
-1071
-290
-Yuma (YM)
-count people with [border-crossed-at-label = \"YM\"]
-17
-1
-11
-
-MONITOR
-1075
-245
-1160
-290
-El Centro (EC)
-count people with [border-crossed-at-label = \"EC\"]
-17
-1
-11
-
-MONITOR
-1164
-244
-1253
-289
-San Diego (SD)
-count people with [border-crossed-at-label = \"SD\"]
-17
-1
-11
-
-PLOT
-846
-11
-1191
-188
-Migrants crossed at port of entry
-Days
-% of all Migrants
-0.0
-10.0
-0.0
-100.0
-true
-true
-"" ""
-PENS
-"Rio Grande (RG)" 1.0 0 -11221820 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"RG\"] / num-crossed * 100] [plot 0]"
-"Laredo (LR)" 1.0 0 -13493215 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"LR\"] / num-crossed * 100] [plot 0]"
-"Del Rio (DR)" 1.0 0 -10649926 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"DR\"] / num-crossed * 100] [plot 0]"
-"Big Bend (BB)" 1.0 0 -8630108 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"BB\"] / num-crossed * 100] [plot 0]"
-"El Paso (EP)" 1.0 0 -14070903 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"EP\"] / num-crossed * 100] [plot 0]"
-"Tuscon (TS)" 1.0 0 -2674135 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"TS\"] / num-crossed * 100] [plot 0]"
-"Yuma (YM)" 1.0 0 -955883 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"YM\"] / num-crossed * 100] [plot 0]"
-"El Centro (EC)" 1.0 0 -4757638 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"EC\"] / num-crossed * 100] [plot 0]"
-"San Diego (SD)" 1.0 0 -15040220 true "" "ifelse num-crossed > 0 [plot count people with [border-crossed-at-label = \"SD\"] / num-crossed * 100] [plot 0]"
-
 SWITCH
 29
 276
@@ -1009,17 +886,17 @@ avg-willingness-to-migrate
 avg-willingness-to-migrate
 0
 100
-23.0
+64.0
 1
 1
 NIL
 HORIZONTAL
 
 MONITOR
-1093
-295
-1174
-340
+1092
+27
+1173
+72
 population
 count people ;* population-scale
 17
@@ -1027,10 +904,10 @@ count people ;* population-scale
 11
 
 MONITOR
-1179
-342
-1263
-387
+1178
+74
+1262
+119
 num crossed
 count people with [migration-status = \"crossed\"]
 17
@@ -1038,10 +915,10 @@ count people with [migration-status = \"crossed\"]
 11
 
 MONITOR
-1094
-341
-1175
-386
+1093
+73
+1174
+118
 migrating
 count people with [migration-status = \"migrating\"]
 17
@@ -1065,7 +942,7 @@ CHOOSER
 111
 pop-display
 pop-display
-"Mexico" "Non-Mexico"
+"Mexico" "All"
 1
 
 SLIDER
@@ -1077,7 +954,7 @@ avg-risk-aversion
 avg-risk-aversion
 0
 100
-13.0
+17.0
 1
 1
 NIL
@@ -1099,10 +976,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1180
-295
-1261
-340
+1179
+27
+1260
+72
 at_border
 count people with [migration-status = \"at_border\"]
 17
@@ -1110,10 +987,10 @@ count people with [migration-status = \"at_border\"]
 11
 
 PLOT
-850
-295
-1089
-415
+847
+27
+1086
+147
 Migration status
 NIL
 NIL
@@ -1148,6 +1025,392 @@ You can change dispaly options while model runs.
 11
 0.0
 1
+
+PLOT
+847
+281
+1087
+401
+Honduras Migration status
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"migrating" 1.0 0 -5987164 true "" "plot count people with [migration-status = \"migrating\" and my-home-country = \"Honduras\"]"
+"at_border" 1.0 0 -2674135 true "" "plot count people with [migration-status = \"at_border\" and my-home-country = \"Honduras\"]"
+"crossed" 1.0 0 -10899396 true "" "plot count people with [migration-status = \"crossed\" and my-home-country = \"Honduras\"]"
+
+MONITOR
+1091
+282
+1166
+327
+population
+(count people with [my-home-country = \"Honduras\"]) ;* population-scale
+17
+1
+11
+
+MONITOR
+1170
+282
+1237
+327
+at_border
+count people with [migration-status = \"at_border\" and my-home-country = \"Honduras\"]
+17
+1
+11
+
+MONITOR
+1091
+331
+1154
+376
+migrating
+count people with [migration-status = \"migrating\" and my-home-country = \"Honduras\"]
+17
+1
+11
+
+MONITOR
+1158
+331
+1245
+376
+num crossed
+count people with [migration-status = \"crossed\" and my-home-country = \"Honduras\"]
+17
+1
+11
+
+PLOT
+846
+154
+1085
+275
+Mexico Migration status
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"migrating" 1.0 0 -4539718 true "" "plot count people with [migration-status = \"migrating\" and my-home-country = \"Mexico\"]"
+"at_border" 1.0 0 -2674135 true "" "plot count people with [migration-status = \"at_border\" and my-home-country = \"Mexico\"]"
+"crossed" 1.0 0 -10899396 true "" "plot count people with [migration-status = \"crossed\" and my-home-country = \"Mexico\"]"
+
+MONITOR
+1090
+154
+1162
+199
+population
+(count people with [my-home-country = \"Mexico\"]) ;* population-scale
+17
+1
+11
+
+MONITOR
+1166
+154
+1233
+199
+at_border
+count people with [migration-status = \"at_border\" and my-home-country = \"Mexico\"]
+17
+1
+11
+
+MONITOR
+1090
+203
+1153
+248
+migrating
+count people with [migration-status = \"migrating\" and my-home-country = \"Mexico\"]
+17
+1
+11
+
+MONITOR
+1156
+203
+1243
+248
+num crossed
+count people with [migration-status = \"crossed\" and my-home-country = \"Mexico\"]
+17
+1
+11
+
+PLOT
+848
+405
+1087
+529
+Guatemala Migration Status
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"migrating" 1.0 0 -5987164 true "" "plot count people with [migration-status = \"migrating\" and my-home-country = \"Guatemala\"]"
+"at_border" 1.0 0 -2674135 true "" "plot count people with [migration-status = \"at_border\" and my-home-country = \"Guatemala\"]"
+"crossed" 1.0 0 -10899396 true "" "plot count people with [migration-status = \"crossed\" and my-home-country = \"Guatemala\"]"
+
+MONITOR
+1091
+406
+1163
+451
+population
+(count people with [my-home-country = \"Guatemala\"]) ;* population-scale
+17
+1
+11
+
+MONITOR
+1168
+406
+1235
+451
+at_border
+count people with [migration-status = \"at_border\" and my-home-country = \"Guatemala\"]
+17
+1
+11
+
+MONITOR
+1091
+455
+1154
+500
+migrating
+count people with [migration-status = \"migrating\" and my-home-country = \"Guatemala\"]
+17
+1
+11
+
+MONITOR
+1159
+455
+1246
+500
+num crossed
+count people with [migration-status = \"crossed\" and my-home-country = \"Guatemala\"]
+17
+1
+11
+
+PLOT
+21
+439
+266
+566
+El Salvador Migration status
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"migrating" 1.0 0 -7500403 true "" "plot count people with [migration-status = \"migrating\" and my-home-country = \"El Salvador\"]"
+"at_border" 1.0 0 -2674135 true "" "plot count people with [migration-status = \"at_border\" and my-home-country = \"El Salvador\"]"
+"crossed" 1.0 0 -10899396 true "" "plot count people with [migration-status = \"crossed\" and my-home-country = \"El Salvador\"]"
+
+MONITOR
+273
+439
+345
+484
+population
+(count people with [my-home-country = \"El Salvador\"]) ;* population-scale
+17
+1
+11
+
+MONITOR
+351
+439
+418
+484
+at_border
+count people with [migration-status = \"at_border\" and my-home-country = \"El Salvador\"]
+17
+1
+11
+
+MONITOR
+273
+488
+336
+533
+migrating
+count people with [migration-status = \"migrating\" and my-home-country = \"El Salvador\"]
+17
+1
+11
+
+MONITOR
+341
+488
+428
+533
+num crossed
+count people with [migration-status = \"crossed\" and my-home-country = \"El Salvador\"]
+17
+1
+11
+
+PLOT
+435
+438
+680
+563
+Belize Migration Status
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"migrating" 1.0 0 -5987164 true "" "plot count people with [migration-status = \"migrating\" and my-home-country = \"Belize\"]"
+"at_border" 1.0 0 -2674135 true "" "plot count people with [migration-status = \"at_border\" and my-home-country = \"Belize\"]"
+"crossed" 1.0 0 -10899396 true "" "plot count people with [migration-status = \"crossed\" and my-home-country = \"Belize\"]"
+
+MONITOR
+685
+438
+757
+483
+population
+(count people with [my-home-country = \"Belize\"]) ;* population-scale
+17
+1
+11
+
+MONITOR
+761
+438
+828
+483
+at_border
+count people with [migration-status = \"at_border\" and my-home-country = \"Belize\"]
+17
+1
+11
+
+MONITOR
+751
+486
+838
+531
+num crossed
+count people with [migration-status = \"crossed\" and my-home-country = \"Belize\"]
+17
+1
+11
+
+MONITOR
+1236
+154
+1293
+199
+Ratio
+count people with [migration-status = \"crossed\" and my-home-country = \"Mexico\"]/(count people with [my-home-country = \"Mexico\"])
+4
+1
+11
+
+MONITOR
+1263
+27
+1320
+72
+ratio
+count people with [migration-status = \"crossed\"]/(count people)
+4
+1
+11
+
+MONITOR
+1242
+282
+1299
+327
+ratio
+count people with [migration-status = \"crossed\" and my-home-country = \"Honduras\"]/(count people with [my-home-country = \"Honduras\"])
+4
+1
+11
+
+MONITOR
+1239
+406
+1296
+451
+ratio
+count people with [migration-status = \"crossed\" and my-home-country = \"Guatemala\"]/(count people with [my-home-country = \"Guatemala\"])
+4
+1
+11
+
+MONITOR
+273
+537
+330
+582
+ratio
+count people with [migration-status = \"crossed\" and my-home-country = \"El Salvador\"]/(count people with [my-home-country = \"El Salvador\"])
+4
+1
+11
+
+MONITOR
+685
+534
+742
+579
+ratio
+count people with [migration-status = \"crossed\" and my-home-country = \"Belize\"]/(count people with [my-home-country = \"Belize\"])
+4
+1
+11
+
+MONITOR
+685
+486
+747
+531
+migrating
+count people with [migration-status = \"migrating\" and my-home-country = \"Belize\"]
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
